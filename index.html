@@ -46,7 +46,6 @@
       overflow-x: hidden;
     }
 
-    /* MIGNON FOND DECORATIF (Étoiles, Nuages & Vagues) */
     body::before {
       content: '☁️';
       position: fixed;
@@ -101,7 +100,6 @@
       z-index: 1;
     }
 
-    /* Top Bar */
     header {
       display: flex;
       justify-content: space-between;
@@ -151,7 +149,6 @@
       transform: translateY(-2px);
     }
 
-    /* Cards Layout */
     .card {
       background: var(--card-bg);
       backdrop-filter: blur(12px);
@@ -172,7 +169,6 @@
       gap: 8px;
     }
 
-    /* Form Fields */
     .form-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -212,7 +208,6 @@
       box-shadow: 0 0 0 3px rgba(155, 130, 227, 0.2);
     }
 
-    /* Interruption Timeline */
     .timeline-container {
       margin: 20px 0;
       background: white;
@@ -302,7 +297,6 @@
       margin-top: 2px;
     }
 
-    /* Ratings Grid */
     .ratings-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -366,7 +360,6 @@
       color: var(--primary);
     }
 
-    /* Submit Button */
     .btn-submit {
       width: 100%;
       background: linear-gradient(135deg, var(--primary) 0%, var(--pink) 100%);
@@ -388,7 +381,6 @@
       box-shadow: 0 8px 20px rgba(155, 130, 227, 0.4);
     }
 
-    /* Table Styles */
     .table-container {
       overflow-x: auto;
       border-radius: var(--radius-md);
@@ -471,7 +463,7 @@
       background: #ffcdd2;
     }
 
-    /* LOCK SCREEN MODAL (6 DIGITS - ORIGINAL DESIGN) */
+    /* LOCK SCREEN MODAL */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -569,7 +561,6 @@
       display: none !important;
     }
 
-    /* Modal standard */
     .modal-box {
       background: white;
       padding: 24px;
@@ -592,16 +583,15 @@
 </head>
 <body>
 
-  <!-- BACKGROUND DECORATIONS -->
   <div class="bg-decor-1">🌸</div>
   <div class="bg-decor-2">🌙</div>
 
-  <!-- LOCK SCREEN (6 DIGITS - ORIGINAL LOOK) -->
+  <!-- LOCK SCREEN -->
   <div id="lockScreen" class="modal-overlay hidden">
     <div class="pin-card">
       <div style="font-size: 2.5rem; margin-bottom: 5px;">🌙</div>
-      <div class="pin-title" id="pinTitle">Code PIN requis</div>
-      <div class="pin-subtitle" id="pinSubtitle">Entrez votre code à 6 chiffres</div>
+      <div class="pin-title" id="pinTitle">Bienvenue ! ✨</div>
+      <div class="pin-subtitle" id="pinSubtitle">Créez votre code PIN à 6 chiffres</div>
       
       <div class="pin-dots">
         <div class="pin-dot" id="dot0"></div>
@@ -660,7 +650,6 @@
   <!-- MAIN APP CONTAINER -->
   <div class="container">
     
-    <!-- HEADER -->
     <header>
       <div class="logo-title">
         <span>✨</span> Mon Agenda du Sommeil
@@ -671,7 +660,6 @@
       </div>
     </header>
 
-    <!-- FORM CARD -->
     <div class="card">
       <div class="card-title">
         <span>🌙</span> Enregistrer une nuit
@@ -702,7 +690,6 @@
           </div>
         </div>
 
-        <!-- TIMELINE INTERRUPTION -->
         <div class="timeline-container">
           <div class="timeline-header">
             <span>⏱️ Suivi des interruptions & éveil (23h ➔ 15h)</span>
@@ -712,15 +699,11 @@
               <div class="legend-item"><div class="legend-box full"></div> 1h éveil</div>
             </div>
           </div>
-          <div class="hours-grid" id="hoursGrid">
-            <!-- Dynamically populated -->
-          </div>
+          <div class="hours-grid" id="hoursGrid"></div>
         </div>
 
-        <!-- RATINGS -->
         <div class="ratings-grid">
           
-          <!-- Quality Sleep -->
           <div class="rating-group">
             <label>😴 Qualité du sommeil</label>
             <div class="rating-options" id="ratingSleep">
@@ -732,7 +715,6 @@
             </div>
           </div>
 
-          <!-- Quality Wake -->
           <div class="rating-group">
             <label>☀️ Qualité du réveil</label>
             <div class="rating-options" id="ratingWake">
@@ -744,7 +726,6 @@
             </div>
           </div>
 
-          <!-- Quality Day -->
           <div class="rating-group">
             <label>🌈 Qualité de la journée</label>
             <div class="rating-options" id="ratingDay">
@@ -762,7 +743,6 @@
       </form>
     </div>
 
-    <!-- LOG TABLE CARD -->
     <div class="card">
       <div class="card-title">
         <span>📖</span> Mon Journal du Sommeil
@@ -785,9 +765,7 @@
               <th>Action</th>
             </tr>
           </thead>
-          <tbody id="logsTableBody">
-            <!-- Table rows dynamically populated -->
-          </tbody>
+          <tbody id="logsTableBody"></tbody>
         </table>
       </div>
     </div>
@@ -795,7 +773,6 @@
   </div>
 
   <script>
-    // --- HOURS CONFIG (23h to 15h) ---
     const HOURS = [23, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
     let hourStates = {}; 
 
@@ -807,7 +784,6 @@
       5: '🌟'
     };
 
-    // --- INITIALIZATION ---
     document.addEventListener("DOMContentLoaded", () => {
       const today = new Date().toISOString().split('T')[0];
       document.getElementById('sleepDate').value = today;
@@ -857,7 +833,7 @@
         const stateLabel = document.createElement('div');
         stateLabel.className = 'hour-state';
         stateLabel.id = `hour-state-${h}`;
-        stateLabel.innerText = ''; // Emojis retirés
+        stateLabel.innerText = '';
 
         cell.appendChild(label);
         cell.appendChild(stateLabel);
@@ -1063,15 +1039,17 @@
       });
     }
 
-    // --- PIN / SECURITY LOGIC (6 DIGITS - ORIGINAL LOOK) ---
+    // --- LOGIQUE PIN CORRIGÉE (CRÉATION VS DÉVERROUILLAGE) ---
     let currentPinInput = "";
     let setupPinMode = false;
     let tempPin = "";
 
     function checkPinOnStartup() {
       const savedPin = localStorage.getItem('sleep_app_pin');
-      if (savedPin) {
-        showLockScreen("Code PIN requis", "Entrez votre code à 6 chiffres");
+      if (!savedPin) {
+        startPinSetup();
+      } else {
+        showLockScreen("Code PIN requis 🔒", "Entrez votre code à 6 chiffres");
       }
     }
 
@@ -1085,11 +1063,9 @@
     function lockApp() {
       const savedPin = localStorage.getItem('sleep_app_pin');
       if (!savedPin) {
-        if (confirm("Vous n'avez pas encore configuré de code PIN. Voulez-vous en créer un maintenant ?")) {
-          startPinSetup();
-        }
+        startPinSetup();
       } else {
-        showLockScreen("Application verrouillée", "Entrez votre PIN à 6 chiffres");
+        showLockScreen("Application verrouillée 🔒", "Entrez votre PIN à 6 chiffres");
       }
     }
 
@@ -1131,7 +1107,7 @@
       if (setupPinMode) {
         if (!tempPin) {
           tempPin = currentPinInput;
-          showLockScreen("Confirmation", "Répétez votre code PIN à 6 chiffres");
+          showLockScreen("Confirmation ✨", "Répétez votre code PIN à 6 chiffres");
         } else {
           if (currentPinInput === tempPin) {
             localStorage.setItem('sleep_app_pin', tempPin);
@@ -1158,7 +1134,7 @@
     function startPinSetup() {
       setupPinMode = true;
       tempPin = "";
-      showLockScreen("Créer un PIN", "Choisissez un code à 6 chiffres");
+      showLockScreen("Bienvenue ! ✨", "Créez votre code PIN à 6 chiffres");
     }
 
     function changePin() {
