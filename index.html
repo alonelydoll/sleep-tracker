@@ -396,10 +396,173 @@
             color: #721c24;
         }
 
+        .btn-warning {
+            background: #fff1b8;
+            color: #635316;
+        }
+
         .btn-sm {
             padding: 6px 12px;
             font-size: 0.8rem;
             border-radius: 20px;
+        }
+
+        /* --- ÉCRAN DE VERROUILLAGE PIN --- */
+        .pin-screen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(#e2d4f7 2px, transparent 2px), 
+                radial-gradient(#ffd6e0 2px, var(--bg-color) 2px);
+            background-size: 50px 50px;
+            background-position: 0 0, 25px 25px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .pin-screen-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.05);
+        }
+
+        .pin-card {
+            background: #ffffff;
+            border: 3px solid #ffffff;
+            border-radius: 32px;
+            padding: 32px 24px;
+            box-shadow: 0 15px 35px rgba(184, 167, 234, 0.35);
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .pin-avatar {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #ffd6e0, #e2d4f7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #7b5294;
+            margin-bottom: 12px;
+            box-shadow: 0 6px 15px rgba(248, 165, 194, 0.4);
+            animation: pulse-soft 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+        }
+
+        .pin-title {
+            font-size: 1.4rem;
+            color: #6a5370;
+            margin-bottom: 4px;
+        }
+
+        .pin-subtitle {
+            font-size: 0.85rem;
+            color: #9278a3;
+            font-weight: 600;
+            margin-bottom: 20px;
+            min-height: 22px;
+        }
+
+        .pin-dots {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .pin-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-purple);
+            background: #fbf8fe;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .pin-dot.filled {
+            background: var(--primary-pink-dark);
+            border-color: var(--primary-pink-dark);
+            transform: scale(1.2);
+            box-shadow: 0 2px 8px rgba(248, 165, 194, 0.5);
+        }
+
+        .pin-dot.error {
+            background: #e63946;
+            border-color: #e63946;
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        .pin-pad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 260px;
+        }
+
+        .pin-btn {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: 2px solid var(--accent-lavender);
+            background: #fdfafd;
+            color: #6c4b7c;
+            font-family: 'Fredoka', cursive;
+            font-size: 1.35rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.03);
+            user-select: none;
+        }
+
+        .pin-btn:hover {
+            background: var(--accent-lavender);
+            transform: translateY(-2px);
+        }
+
+        .pin-btn:active {
+            transform: scale(0.92);
+            background: var(--primary-pink);
+        }
+
+        .pin-btn-action {
+            font-size: 0.95rem;
+            border-color: transparent;
+            background: transparent;
+            box-shadow: none;
+            color: #9278a3;
+        }
+
+        .pin-btn-action:hover {
+            background: rgba(226, 212, 247, 0.3);
         }
 
         /* Table Log Section */
@@ -613,15 +776,21 @@
             <p>Journal de suivi doux & mignon pour de douces nuits ✨</p>
             
             <div class="top-buttons">
+                <button class="btn btn-secondary btn-sm" id="btn-lock" title="Verrouiller l'agenda">
+                    <i class="fa-solid fa-lock"></i> Verrouiller
+                </button>
+                <button class="btn btn-secondary btn-sm" id="btn-settings" title="Paramètres du PIN">
+                    <i class="fa-solid fa-key"></i> Code PIN
+                </button>
                 <button class="btn btn-secondary btn-sm" id="btn-export">
-                    <i class="fa-solid fa-download"></i> Exporter mes données
+                    <i class="fa-solid fa-download"></i> Exporter
                 </button>
                 <button class="btn btn-secondary btn-sm" id="btn-import-trigger">
                     <i class="fa-solid fa-upload"></i> Importer
                 </button>
                 <input type="file" id="import-file" accept=".json" style="display: none;">
                 <button class="btn btn-mint btn-sm" id="btn-help">
-                    <i class="fa-solid fa-circle-question"></i> Héberger sur GitHub.io
+                    <i class="fa-solid fa-circle-question"></i> GitHub.io
                 </button>
             </div>
         </header>
@@ -811,37 +980,79 @@
         </div>
     </div>
 
+    <!-- MODAL DE PARAMÈTRES / SÉCURITÉ PIN -->
+    <div class="modal-overlay" id="pin-settings-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="font-heading" style="color: #7b5294;"><i class="fa-solid fa-shield-cat"></i> Sécurité du Code PIN</h3>
+                <button class="modal-close" id="pin-modal-close">&times;</button>
+            </div>
+            
+            <div style="margin-bottom: 20px;" id="pin-settings-status">
+                <!-- Message de statut mis à jour dynamiquement -->
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <button class="btn btn-primary" id="btn-change-pin">
+                    <i class="fa-solid fa-pen-to-square"></i> Définir / Changer mon code PIN
+                </button>
+                <button class="btn btn-danger" id="btn-remove-pin" style="display: none;">
+                    <i class="fa-solid fa-lock-open"></i> Désactiver la protection par PIN
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ÉCRAN DE VERROUILLAGE / CREATION DE PIN -->
+    <div class="pin-screen-overlay" id="pin-screen">
+        <div class="pin-card">
+            <div class="pin-avatar">
+                <i class="fa-solid fa-moon-stars" id="pin-icon"></i>
+            </div>
+            <h2 class="pin-title font-heading" id="pin-screen-title">Agenda Protégé</h2>
+            <p class="pin-subtitle" id="pin-screen-subtitle">Entrez votre code PIN secrets ✨</p>
+
+            <div class="pin-dots">
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+            </div>
+
+            <div class="pin-pad">
+                <button class="pin-btn" data-key="1">1</button>
+                <button class="pin-btn" data-key="2">2</button>
+                <button class="pin-btn" data-key="3">3</button>
+                <button class="pin-btn" data-key="4">4</button>
+                <button class="pin-btn" data-key="5">5</button>
+                <button class="pin-btn" data-key="6">6</button>
+                <button class="pin-btn" data-key="7">7</button>
+                <button class="pin-btn" data-key="8">8</button>
+                <button class="pin-btn" data-key="9">9</button>
+                <button class="pin-btn pin-btn-action" id="pin-btn-clear"><i class="fa-solid fa-xmark"></i></button>
+                <button class="pin-btn" data-key="0">0</button>
+                <button class="pin-btn pin-btn-action" id="pin-btn-delete"><i class="fa-solid fa-delete-left"></i></button>
+            </div>
+        </div>
+    </div>
+
     <!-- JAVASCRIPT LOGIC -->
     <script>
         // Configuration de la timeline (De 23h à 15h)
         const TIMELINE_HOURS = [23, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
         
         // Structure de données locale des heures d'interruption: { hour: state }
-        // state: 0 = Plein sommeil, 1 = 30min d'éveil, 2 = 1h d'éveil
         let currentTimelineState = {};
 
         // Emojis des notes/évaluations
-        const RATING_EMOJIS = {
-            1: '😫',
-            2: '😕',
-            3: '😐',
-            4: '🙂',
-            5: '🌟'
-        };
-
-        const RATING_LABELS = {
-            1: 'Très mauvais',
-            2: 'Mauvais',
-            3: 'Bof',
-            4: 'Bien',
-            5: 'Très bien'
-        };
+        const RATING_EMOJIS = { 1: '😫', 2: '😕', 3: '😐', 4: '🙂', 5: '🌟' };
+        const RATING_LABELS = { 1: 'Très mauvais', 2: 'Mauvais', 3: 'Bof', 4: 'Bien', 5: 'Très bien' };
 
         // State global de l'application
         let sleepEntries = [];
         let editingId = null;
 
-        // Éléments DOM
+        // Éléments DOM principaux
         const form = document.getElementById('sleep-form');
         const dateInput = document.getElementById('date-input');
         const bedtimeInput = document.getElementById('bedtime-input');
@@ -856,32 +1067,249 @@
         const tbody = document.getElementById('sleep-tbody');
         const emptyState = document.getElementById('empty-state');
 
-        // Initialisation
+        // Éléments PIN
+        const pinScreen = document.getElementById('pin-screen');
+        const pinScreenTitle = document.getElementById('pin-screen-title');
+        const pinScreenSubtitle = document.getElementById('pin-screen-subtitle');
+        const pinDots = document.querySelectorAll('.pin-dot');
+        const pinIcon = document.getElementById('pin-icon');
+
+        // Logique Système PIN
+        let currentPinInput = "";
+        let pinMode = "UNLOCK"; // "UNLOCK", "CREATE_STEP1", "CREATE_STEP2"
+        let tempPinFirstStep = "";
+
+        // Simple Hash de sécurité pour le stockage du PIN
+        function hashPin(pin) {
+            let hash = 0;
+            for (let i = 0; i < pin.length; i++) {
+                const char = pin.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash |= 0;
+            }
+            return "PIN_" + Math.abs(hash * 31);
+        }
+
+        function getStoredPinHash() {
+            return localStorage.getItem('nashallery_sleep_pin_hash');
+        }
+
+        function setStoredPinHash(hash) {
+            if(hash) {
+                localStorage.setItem('nashallery_sleep_pin_hash', hash);
+            } else {
+                localStorage.removeItem('nashallery_sleep_pin_hash');
+            }
+        }
+
+        // Initialisation globale
         window.onload = function() {
-            // Fixer la date par défaut à aujourd'hui
             dateInput.valueAsDate = new Date();
-            
-            // Initialiser les boutons d'évaluations
             setupRatingPickers();
-
-            // Initialiser la grille de timeline
             initTimelineGrid();
-
-            // Charger les données stockées
             loadEntriesFromStorage();
 
-            // Attacher les auditeurs de calcul de durée
             sleeptimeInput.addEventListener('change', calculateDuration);
             waketimeInput.addEventListener('change', calculateDuration);
 
-            // Modal d'aide
             setupHelpModal();
-
-            // Import/Export
             setupImportExport();
+            setupPinSystem();
         };
 
-        // Initialisation de la grille de timeline (23h à 15h)
+        /* --- SÉCURITÉ & LOCKSCREEN LOGIC --- */
+        function setupPinSystem() {
+            const storedHash = getStoredPinHash();
+
+            if (storedHash) {
+                pinMode = "UNLOCK";
+                showPinScreen("Agenda Protégé", "Entrez votre code PIN secret ✨", "fa-lock");
+            } else {
+                // Pas de PIN configuré : masquer l'écran pour laisser accès direct
+                pinScreen.classList.add('hidden');
+            }
+
+            // Boutons du pavé numérique
+            document.querySelectorAll('.pin-btn[data-key]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const key = btn.getAttribute('data-key');
+                    handlePinDigit(key);
+                });
+            });
+
+            document.getElementById('pin-btn-delete').addEventListener('click', deletePinDigit);
+            document.getElementById('pin-btn-clear').addEventListener('click', clearPinInput);
+
+            // Verrouiller manuellement
+            document.getElementById('btn-lock').addEventListener('click', () => {
+                const pinHash = getStoredPinHash();
+                if (!pinHash) {
+                    // Si aucun PIN existe, proposer d'en créer un
+                    startCreatePinProcess();
+                } else {
+                    pinMode = "UNLOCK";
+                    clearPinInput();
+                    showPinScreen("Agenda Verrouillé", "Entrez votre code PIN secret ✨", "fa-lock");
+                }
+            });
+
+            // Modal Paramètres PIN
+            setupPinSettingsModal();
+        }
+
+        function showPinScreen(title, subtitle, iconClass = "fa-moon-stars") {
+            pinScreenTitle.textContent = title;
+            pinScreenSubtitle.textContent = subtitle;
+            pinIcon.className = "fa-solid " + iconClass;
+            clearPinInput();
+            pinScreen.classList.remove('hidden');
+        }
+
+        function updatePinDots() {
+            pinDots.forEach((dot, index) => {
+                if (index < currentPinInput.length) {
+                    dot.classList.add('filled');
+                } else {
+                    dot.classList.remove('filled');
+                }
+            });
+        }
+
+        function handlePinDigit(digit) {
+            if (currentPinInput.length < 4) {
+                currentPinInput += digit;
+                updatePinDots();
+
+                if (currentPinInput.length === 4) {
+                    setTimeout(processCompletedPin, 150);
+                }
+            }
+        }
+
+        function deletePinDigit() {
+            if (currentPinInput.length > 0) {
+                currentPinInput = currentPinInput.slice(0, -1);
+                updatePinDots();
+            }
+        }
+
+        function clearPinInput() {
+            currentPinInput = "";
+            updatePinDots();
+        }
+
+        function triggerPinError(message) {
+            pinScreenSubtitle.textContent = message;
+            pinScreenSubtitle.style.color = "#e63946";
+            
+            pinDots.forEach(dot => dot.classList.add('error'));
+
+            setTimeout(() => {
+                pinDots.forEach(dot => dot.classList.remove('error'));
+                clearPinInput();
+                pinScreenSubtitle.style.color = "#9278a3";
+            }, 600);
+        }
+
+        function processCompletedPin() {
+            if (pinMode === "UNLOCK") {
+                const inputHash = hashPin(currentPinInput);
+                const savedHash = getStoredPinHash();
+
+                if (inputHash === savedHash) {
+                    // Succès ! Déverrouillage
+                    pinScreen.classList.add('hidden');
+                    clearPinInput();
+                } else {
+                    triggerPinError("Code PIN incorrect ❌");
+                }
+            } 
+            else if (pinMode === "CREATE_STEP1") {
+                tempPinFirstStep = currentPinInput;
+                clearPinInput();
+                pinMode = "CREATE_STEP2";
+                pinScreenTitle.textContent = "Confirmation";
+                pinScreenSubtitle.textContent = "Confirmez votre nouveau code PIN 🌸";
+            } 
+            else if (pinMode === "CREATE_STEP2") {
+                if (currentPinInput === tempPinFirstStep) {
+                    // PIN Créé avec succès !
+                    setStoredPinHash(hashPin(currentPinInput));
+                    pinScreenSubtitle.textContent = "Code PIN enregistré ! ✨";
+                    setTimeout(() => {
+                        pinScreen.classList.add('hidden');
+                        clearPinInput();
+                    }, 500);
+                } else {
+                    triggerPinError("Les codes ne correspondent pas 💔");
+                    setTimeout(() => {
+                        pinMode = "CREATE_STEP1";
+                        pinScreenTitle.textContent = "Créer un PIN";
+                        pinScreenSubtitle.textContent = "Entrez un code PIN à 4 chiffres";
+                    }, 700);
+                }
+            }
+        }
+
+        function startCreatePinProcess() {
+            pinMode = "CREATE_STEP1";
+            tempPinFirstStep = "";
+            showPinScreen("Créer un PIN", "Choisissez un code secret à 4 chiffres 🌸", "fa-key");
+        }
+
+        // Modal de gestion du PIN dans l'app
+        function setupPinSettingsModal() {
+            const modal = document.getElementById('pin-settings-modal');
+            const btnSettings = document.getElementById('btn-settings');
+            const btnClose = document.getElementById('pin-modal-close');
+            const btnChange = document.getElementById('btn-change-pin');
+            const btnRemove = document.getElementById('btn-remove-pin');
+            const statusDiv = document.getElementById('pin-settings-status');
+
+            function refreshModalStatus() {
+                const hasPin = !!getStoredPinHash();
+                if (hasPin) {
+                    statusDiv.innerHTML = `
+                        <div style="background: #f0fdf4; border: 1px solid #8fd9a8; padding: 12px; border-radius: 12px; color: #166534; font-size: 0.9rem;">
+                            <i class="fa-solid fa-circle-check"></i> Votre agenda est actuellement <strong>protégé par un code PIN</strong>.
+                        </div>
+                    `;
+                    btnChange.textContent = "Changer mon code PIN";
+                    btnRemove.style.display = "inline-flex";
+                } else {
+                    statusDiv.innerHTML = `
+                        <div style="background: #fffbeb; border: 1px solid #fef08a; padding: 12px; border-radius: 12px; color: #854d0e; font-size: 0.9rem;">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Aucun code PIN n'est activé. L'accès est libre.
+                        </div>
+                    `;
+                    btnChange.textContent = "Activer un code PIN";
+                    btnRemove.style.display = "none";
+                }
+            }
+
+            btnSettings.addEventListener('click', () => {
+                refreshModalStatus();
+                modal.classList.add('active');
+            });
+
+            btnClose.addEventListener('click', () => modal.classList.remove('active'));
+
+            btnChange.addEventListener('click', () => {
+                modal.classList.remove('active');
+                startCreatePinProcess();
+            });
+
+            btnRemove.addEventListener('click', () => {
+                if(confirm("Voulez-vous vraiment désactiver la protection par code PIN ?")) {
+                    setStoredPinHash(null);
+                    refreshModalStatus();
+                    modal.classList.remove('active');
+                    alert("La protection par PIN a été désactivée ✨");
+                }
+            });
+        }
+
+        /* --- LOGIQUE TIMELINE & SEMAINE --- */
         function initTimelineGrid(initialStates = {}) {
             timelineContainer.innerHTML = '';
             currentTimelineState = {};
@@ -908,7 +1336,7 @@
 
                 box.addEventListener('click', () => {
                     let currentState = parseInt(box.getAttribute('data-state'));
-                    let nextState = (currentState + 1) % 3; // Cycle: 0 -> 1 -> 2 -> 0
+                    let nextState = (currentState + 1) % 3;
                     
                     box.setAttribute('data-state', nextState);
                     currentTimelineState[hour] = nextState;
@@ -918,14 +1346,13 @@
                     if(nextState === 1) statusSpan.textContent = '30 min';
                     if(nextState === 2) statusSpan.textContent = '1 heure';
 
-                    calculateDuration(); // Re-calculer si une interruption réduit la durée active
+                    calculateDuration();
                 });
 
                 timelineContainer.appendChild(box);
             });
         }
 
-        // Configuration des Pickers de Rating (Style Nashallery)
         function setupRatingPickers() {
             document.querySelectorAll('.rating-picker').forEach(picker => {
                 const opts = picker.querySelectorAll('.rating-opt');
@@ -954,7 +1381,6 @@
             });
         }
 
-        // Calcul automatique de la durée de sommeil avec déduction des interruptions
         function calculateDuration() {
             const sleepVal = sleeptimeInput.value;
             const wakeVal = waketimeInput.value;
@@ -971,13 +1397,12 @@
             let wakeDate = new Date(2000, 0, 1, wHours, wMins);
 
             if (wakeDate <= sleepDate) {
-                wakeDate.setDate(wakeDate.getDate() + 1); // Passé minuit
+                wakeDate.setDate(wakeDate.getDate() + 1);
             }
 
             let diffMs = wakeDate - sleepDate;
             let totalMinutes = Math.floor(diffMs / (1000 * 60));
 
-            // Déduire les interruptions sélectionnées
             let interruptionMinutes = 0;
             Object.values(currentTimelineState).forEach(st => {
                 if(st === 1) interruptionMinutes += 30;
@@ -998,7 +1423,6 @@
             durationInput.value = resultText;
         }
 
-        // Gestion du formulaire d'enregistrement
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -1020,7 +1444,7 @@
                 const index = sleepEntries.findIndex(item => item.id === editingId);
                 if(index !== -1) sleepEntries[index] = entryData;
             } else {
-                sleepEntries.unshift(entryData); // Ajouter en premier
+                sleepEntries.unshift(entryData);
             }
 
             saveEntriesToStorage();
@@ -1028,7 +1452,6 @@
             resetForm();
         });
 
-        // Sauvegarde dans le LocalStorage
         function saveEntriesToStorage() {
             localStorage.setItem('nashallery_sleep_diary', JSON.stringify(sleepEntries));
         }
@@ -1045,7 +1468,6 @@
             renderTable();
         }
 
-        // Affichage des données dans le tableau responsive
         function renderTable() {
             tbody.innerHTML = '';
 
@@ -1056,13 +1478,11 @@
                 emptyState.style.display = 'none';
             }
 
-            // Trier les entrées par date décroissante
             sleepEntries.sort((a, b) => new Date(b.date) - new Date(a.date));
 
             sleepEntries.forEach(entry => {
                 const tr = document.createElement('tr');
 
-                // Formater la date en français
                 const dateObj = new Date(entry.date + 'T00:00:00');
                 const formattedDate = dateObj.toLocaleDateString('fr-FR', {
                     weekday: 'short',
@@ -1070,7 +1490,6 @@
                     month: 'short'
                 });
 
-                // Génération de la mini timeline visuelle dans le tableau
                 let miniTimelineHtml = '<div class="table-timeline">';
                 TIMELINE_HOURS.forEach(hour => {
                     const st = entry.timeline && entry.timeline[hour] !== undefined ? entry.timeline[hour] : 0;
@@ -1113,7 +1532,6 @@
             });
         }
 
-        // Édition d'une nuit
         window.editEntry = function(id) {
             const entry = sleepEntries.find(item => item.id === id);
             if(!entry) return;
@@ -1138,7 +1556,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
-        // Supprimer une nuit
         window.deleteEntry = function(id) {
             if(confirm("Voulez-vous vraiment supprimer cette nuit du journal ? 🌸")) {
                 sleepEntries = sleepEntries.filter(item => item.id !== id);
@@ -1148,7 +1565,6 @@
             }
         };
 
-        // Reset du formulaire
         function resetForm() {
             editingId = null;
             entryIdInput.value = '';
@@ -1165,7 +1581,6 @@
 
         btnResetForm.addEventListener('click', resetForm);
 
-        // Modal d'aide
         function setupHelpModal() {
             const modal = document.getElementById('help-modal');
             const btnHelp = document.getElementById('btn-help');
@@ -1181,13 +1596,11 @@
             });
         }
 
-        // Export / Import
         function setupImportExport() {
             const btnExport = document.getElementById('btn-export');
             const btnImportTrigger = document.getElementById('btn-import-trigger');
             const importFile = document.getElementById('import-file');
 
-            // Export JSON
             btnExport.addEventListener('click', () => {
                 if(sleepEntries.length === 0) {
                     alert("Votre journal est vide pour le moment !");
@@ -1202,10 +1615,8 @@
                 downloadAnchor.remove();
             });
 
-            // Trigger File Dialog
             btnImportTrigger.addEventListener('click', () => importFile.click());
 
-            // Read File
             importFile.addEventListener('change', (e) => {
                 const file = e.target.files[0];
                 if (!file) return;
