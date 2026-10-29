@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Agenda du Sommeil 🌙✨</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #fdf6fe;
+            --card-bg: #ffffff;
+            --primary-pink: #ffd6e0;
+            --primary-pink-dark: #f8a5c2;
+            --accent-lavender: #e2d4f7;
+            --accent-purple: #b8a7ea;
+            --accent-mint: #caffbf;
+            --accent-mint-dark: #8fd9a8;
+            --accent-yellow: #fff1b8;
+            --accent-peach: #ffdac1;
+            --text-color: #5c4b51;
+            --text-light: #8e7dbe;
+            --border-color: #f0e6f5;
+            --shadow-soft: 0 10px 25px -5px rgba(184, 167, 234, 0.25);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(#e2d4f7 1.5px, transparent 1.5px), 
+                radial-gradient(#ffd6e0 1.5px, var(--bg-color) 1.5px);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px 10px 60px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Fredoka', cursive;
+            color: #6a5370;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Header Cute Style Nashallery */
+        header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border: 3px solid #ffffff;
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "✨ ☁️ 🌙 ☁️ ✨";
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            opacity: 0.7;
+            letter-spacing: 6px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-top: 10px;
+            color: #7b5294;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        header p {
+            color: #9278a3;
+            font-weight: 600;
+            margin-top: 4px;
+            font-size: 0.95rem;
+        }
+
+        .top-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* Card Panels */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-soft);
+            border: 2px solid #ffffff;
+            position: relative;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px dashed var(--accent-lavender);
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #6c4b7c;
+        }
+
+        /* Form Controls */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #6b5c70;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-control {
+            background: #fbf8fe;
+            border: 2px solid var(--accent-lavender);
+            padding: 12px 14px;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            color: var(--text-color);
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-pink-dark);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(248, 165, 194, 0.2);
+        }
+
+        /* Timeline interruption Section */
+        .timeline-section {
+            margin-top: 24px;
+            background: #fcf8ff;
+            padding: 18px;
+            border-radius: var(--radius-md);
+            border: 2px solid var(--accent-lavender);
+        }
+
+        .timeline-title {
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+            color: #6c4b7c;
+        }
+
+        .timeline-desc {
+            font-size: 0.85rem;
+            color: #8f79a1;
+            margin-bottom: 16px;
+        }
+
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(62px, 1fr));
+            gap: 8px;
+            max-width: 100%;
+        }
+
+        .timeline-hour-box {
+            background: #ffffff;
+            border: 2px solid var(--accent-lavender);
+            border-radius: var(--radius-sm);
+            padding: 8px 4px;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .timeline-hour-box:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-purple);
+        }
+
+        .timeline-hour-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #7a6b82;
+        }
+
+        /* Visual State Indicators for 1h / 30m / 0m */
+        .hour-visual {
+            width: 36px;
+            height: 24px;
+            border-radius: 6px;
+            border: 2px dashed #d1c4e9;
+            background: #f7f3fb;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+        }
+
+        /* States for timeline boxes */
+        /* State 0: Deep Sleep / No interruption (empty/default) */
+        .timeline-hour-box[data-state="0"] .hour-visual {
+            background: #ffffff;
+            border-style: dashed;
+        }
+        .timeline-hour-box[data-state="0"] .status-text {
+            color: #a89bb0;
+            font-size: 0.65rem;
+        }
+
+        /* State 1: Half hour awake (30 min) */
+        .timeline-hour-box[data-state="1"] {
+            border-color: #ffb7b2;
+            background: #fff8f8;
+        }
+        .timeline-hour-box[data-state="1"] .hour-visual {
+            border-style: solid;
+            border-color: #f7a399;
+            background: linear-gradient(90deg, #ffb7b2 50%, #ffffff 50%);
+        }
+        .timeline-hour-box[data-state="1"] .status-text {
+            color: #e56b6f;
+            font-weight: 700;
+            font-size: 0.65rem;
+        }
+
+        /* State 2: Full hour awake (60 min) */
+        .timeline-hour-box[data-state="2"] {
+            border-color: #e63946;
+            background: #ffebee;
+        }
+        .timeline-hour-box[data-state="2"] .hour-visual {
+            border-style: solid;
+            border-color: #e63946;
+            background: #ff758f;
+        }
+        .timeline-hour-box[data-state="2"] .status-text {
+            color: #c9184a;
+            font-weight: 800;
+            font-size: 0.65rem;
+        }
+
+        /* Ratings Selectors */
+        .ratings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .rating-picker {
+            display: flex;
+            gap: 6px;
+            background: #fbf8fe;
+            padding: 6px;
+            border-radius: var(--radius-md);
+            border: 2px solid var(--accent-lavender);
+        }
+
+        .rating-opt {
+            flex: 1;
+            padding: 8px 2px;
+            text-align: center;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.2s ease;
+            background: transparent;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .rating-opt span {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #8c7a95;
+        }
+
+        .rating-opt:hover {
+            background: rgba(226, 212, 247, 0.4);
+        }
+
+        .rating-opt.selected {
+            background: var(--primary-pink);
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(248, 165, 194, 0.4);
+        }
+
+        .rating-opt.selected span {
+            color: #5c3249;
+        }
+
+        /* Buttons Nashallery Style */
+        .btn {
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(0,0,0,0.1);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #f8a5c2, #b8a7ea);
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+        }
+
+        .btn-secondary {
+            background: #ffffff;
+            color: #7b5294;
+            border: 2px solid var(--accent-lavender);
+        }
+
+        .btn-secondary:hover {
+            background: #fbf8fe;
+            border-color: var(--accent-purple);
+        }
+
+        .btn-mint {
+            background: linear-gradient(135deg, #8fd9a8, #7bdff2);
+            color: #20503b;
+        }
+
+        .btn-danger {
+            background: #ffb7b2;
+            color: #721c24;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            border-radius: 20px;
+        }
+
+        /* Table Log Section */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: var(--radius-md);
+            border: 2px solid var(--accent-lavender);
+            background: #ffffff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            min-width: 900px;
+        }
+
+        th {
+            background: #f9f4fc;
+            color: #6c4b7c;
+            padding: 14px 12px;
+            font-family: 'Fredoka', cursive;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-bottom: 2px solid var(--accent-lavender);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #f2e9f7;
+            font-size: 0.9rem;
+            color: #5c4b51;
+            vertical-align: middle;
+        }
+
+        tr:hover td {
+            background: #fdfafc;
+        }
+
+        /* Miniature Timeline in Table */
+        .table-timeline {
+            display: flex;
+            gap: 2px;
+            align-items: center;
+        }
+
+        .mini-block {
+            width: 14px;
+            height: 18px;
+            border-radius: 3px;
+            background: #f0e6f5;
+            border: 1px solid #e0d0ea;
+            position: relative;
+            title: attr(data-title);
+        }
+
+        .mini-block.half {
+            background: linear-gradient(90deg, #ffb7b2 50%, #f0e6f5 50%);
+            border-color: #f7a399;
+        }
+
+        .mini-block.full {
+            background: #ff758f;
+            border-color: #e63946;
+        }
+
+        .badge-duration {
+            background: var(--accent-lavender);
+            color: #503d6e;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: inline-block;
+        }
+
+        /* Help Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(92, 75, 81, 0.4);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            padding: 16px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            max-width: 550px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border: 3px solid var(--accent-lavender);
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .modal-close {
+            background: #f2e9f7;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #7b5294;
+            font-weight: bold;
+        }
+
+        .guide-step {
+            background: #fbf8fe;
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            border-left: 4px solid var(--accent-purple);
+        }
+
+        .guide-step h4 {
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+
+        .guide-step p {
+            font-size: 0.85rem;
+            color: #6b5c70;
+            line-height: 1.4;
+        }
+
+        code {
+            background: #eee6f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #5a3c6d;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #9d8ab0;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            color: var(--accent-purple);
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.7rem;
+            }
+            
+            .card {
+                padding: 16px;
+            }
+
+            .timeline-grid {
+                grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+            }
+
+            .timeline-hour-box {
+                padding: 6px 2px;
+            }
+
+            .hour-visual {
+                width: 28px;
+                height: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- HEADER NASHALLERY STYLE -->
+        <header>
+            <h1><i class="fa-solid fa-cloud-moon"></i> Mon Agenda du Sommeil</h1>
+            <p>Journal de suivi doux & mignon pour de douces nuits ✨</p>
+            
+            <div class="top-buttons">
+                <button class="btn btn-secondary btn-sm" id="btn-export">
+                    <i class="fa-solid fa-download"></i> Exporter mes données
+                </button>
+                <button class="btn btn-secondary btn-sm" id="btn-import-trigger">
+                    <i class="fa-solid fa-upload"></i> Importer
+                </button>
+                <input type="file" id="import-file" accept=".json" style="display: none;">
+                <button class="btn btn-mint btn-sm" id="btn-help">
+                    <i class="fa-solid fa-circle-question"></i> Héberger sur GitHub.io
+                </button>
+            </div>
+        </header>
+
+        <!-- FORMULARIE DE SAISIE -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fa-solid fa-pen-sparkles" style="color: var(--primary-pink-dark);"></i>
+                    <span id="form-title">Ajouter une nuit de sommeil</span>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="btn-reset-form" style="display: none;">
+                    <i class="fa-solid fa-xmark"></i> Annuler la modification
+                </button>
+            </div>
+
+            <form id="sleep-form">
+                <input type="hidden" id="entry-id">
+
+                <!-- Dates et Heures principales -->
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="date-input"><i class="fa-regular fa-calendar-heart"></i> Date de la nuit</label>
+                        <input type="date" id="date-input" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bedtime-input"><i class="fa-solid fa-bed"></i> Heure de coucher (Bedtime)</label>
+                        <input type="time" id="bedtime-input" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sleeptime-input"><i class="fa-solid fa-moon"></i> Heure d'endormissement</label>
+                        <input type="time" id="sleeptime-input" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="waketime-input"><i class="fa-solid fa-sun"></i> Heure de réveil</label>
+                        <input type="time" id="waketime-input" class="form-control" required>
+                    </div>
+                </div>
+
+                <!-- Timeline des interruptions (23h à 15h) -->
+                <div class="timeline-section">
+                    <div class="timeline-title">
+                        <i class="fa-solid fa-clock-rotate-left"></i> Contrôle des interruptions (23h00 ➔ 15h00)
+                    </div>
+                    <div class="timeline-desc">
+                        Cliquez sur une heure pour changer l'état : 
+                        <strong>Plein sommeil</strong> ➔ <strong>30 min d'éveil (demi-case)</strong> ➔ <strong>1h d'éveil (case pleine)</strong>.
+                    </div>
+
+                    <div class="timeline-grid" id="timeline-container">
+                        <!-- Généré dynamiquement de 23h à 15h -->
+                    </div>
+                </div>
+
+                <!-- Durée estimée + Évaluations -->
+                <div class="ratings-grid">
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-hourglass-half"></i> Durée totale du sommeil</label>
+                        <input type="text" id="calculated-duration" class="form-control" placeholder="Calculé automatiquement..." readonly style="background: #f2ebf7; font-weight: 700; color: #6b4c7d;">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-face-smile-wink"></i> Qualité du Sommeil</label>
+                        <div class="rating-picker" id="picker-sleep">
+                            <button type="button" class="rating-opt" data-val="1">😫<span>Très mauvais</span></button>
+                            <button type="button" class="rating-opt" data-val="2">😕<span>Mauvais</span></button>
+                            <button type="button" class="rating-opt selected" data-val="3">😐<span>Bof</span></button>
+                            <button type="button" class="rating-opt" data-val="4">🙂<span>Bien</span></button>
+                            <button type="button" class="rating-opt" data-val="5">🌟<span>Très bien</span></button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-mug-saucer"></i> Qualité du Réveil</label>
+                        <div class="rating-picker" id="picker-wake">
+                            <button type="button" class="rating-opt" data-val="1">😫<span>Très mauvais</span></button>
+                            <button type="button" class="rating-opt" data-val="2">😕<span>Mauvais</span></button>
+                            <button type="button" class="rating-opt selected" data-val="3">😐<span>Bof</span></button>
+                            <button type="button" class="rating-opt" data-val="4">🙂<span>Bien</span></button>
+                            <button type="button" class="rating-opt" data-val="5">🌟<span>Très bien</span></button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-sparkles"></i> Qualité de la Journée</label>
+                        <div class="rating-picker" id="picker-day">
+                            <button type="button" class="rating-opt" data-val="1">😫<span>Très mauvais</span></button>
+                            <button type="button" class="rating-opt" data-val="2">😕<span>Mauvais</span></button>
+                            <button type="button" class="rating-opt selected" data-val="3">😐<span>Bof</span></button>
+                            <button type="button" class="rating-opt" data-val="4">🙂<span>Bien</span></button>
+                            <button type="button" class="rating-opt" data-val="5">🌟<span>Très bien</span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Remarques -->
+                <div class="form-group" style="margin-top: 16px;">
+                    <label for="notes-input"><i class="fa-solid fa-heart-note"></i> Notes ou petits mots doux (optionnel)</label>
+                    <input type="text" id="notes-input" class="form-control" placeholder="ex: Bu de la tisane, réveil naturel, cauchemar...">
+                </div>
+
+                <!-- Submit Button -->
+                <div style="margin-top: 20px; text-align: right;">
+                    <button type="submit" class="btn btn-primary" id="btn-submit">
+                        <i class="fa-solid fa-cloud-check"></i> Enregistrer cette nuit
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- HISTORIQUE / TABLEAU DU SOMMEIL -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fa-solid fa-book-bookmark" style="color: var(--accent-purple);"></i>
+                    <span>Mon Journal du Sommeil</span>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table id="sleep-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Coucher</th>
+                            <th>Endormi</th>
+                            <th>Réveil</th>
+                            <th>Interruptions (23h ➔ 15h)</th>
+                            <th>Durée</th>
+                            <th>Sommeil</th>
+                            <th>Réveil</th>
+                            <th>Journée</th>
+                            <th style="text-align: center;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sleep-tbody">
+                        <!-- Entries populated dynamically -->
+                    </tbody>
+                </table>
+                <div id="empty-state" class="empty-state" style="display: none;">
+                    <i class="fa-solid fa-star-shooting"></i>
+                    <p>Aucune nuit enregistrée pour le moment.<br>Remplissez le formulaire ci-dessus pour commencer votre journal !</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL D'AIDE GITHUB PAGES -->
+    <div class="modal-overlay" id="help-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="font-heading" style="color: #7b5294;"><i class="fa-brands fa-github"></i> Publier sur GitHub Pages</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            
+            <p style="font-size: 0.9rem; color: #6b5c70; margin-bottom: 16px;">
+                Voici les étapes très simples pour rendre votre agenda accessible gratuitement sur votre téléphone et PC grâce à GitHub Pages :
+            </p>
+
+            <div class="guide-step">
+                <h4>1. Créer un compte & un dépôt</h4>
+                <p>Inscrivez-vous sur <code>GitHub.com</code> puis créez un nouveau dépôt public (Repository) nommé par exemple <code>mon-agenda-sommeil</code>.</p>
+            </div>
+
+            <div class="guide-step">
+                <h4>2. Déposer ce fichier</h4>
+                <p>Enregistrez tout le code de cette page sous le nom exact : <code>index.html</code>.<br>Uploadez le fichier <code>index.html</code> dans votre dépôt GitHub.</p>
+            </div>
+
+            <div class="guide-step">
+                <h4>3. Activer GitHub Pages</h4>
+                <p>Allez dans l'onglet <strong>Settings</strong> (Paramètres) de votre dépôt ➔ menu <strong>Pages</strong> à gauche ➔ Sous <i>Build and deployment</i>, choisissez la branche <code>main</code> (ou <code>master</code>) puis cliquez sur <strong>Save</strong>.</p>
+            </div>
+
+            <div class="guide-step">
+                <h4>4. C'est prêt ! 🌸</h4>
+                <p>Après 1-2 minutes, votre site sera disponible à l'adresse :<br><code>https://votre-pseudo.github.io/mon-agenda-sommeil/</code>.<br>Vous pouvez l'ajouter aux favoris de votre téléphone pour y accéder comme une vraie application !</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn btn-primary" id="modal-ok-btn">J'ai compris ! ✨</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Configuration de la timeline (De 23h à 15h)
+        const TIMELINE_HOURS = [23, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+        
+        // Structure de données locale des heures d'interruption: { hour: state }
+        // state: 0 = Plein sommeil, 1 = 30min d'éveil, 2 = 1h d'éveil
+        let currentTimelineState = {};
+
+        // Emojis des notes/évaluations
+        const RATING_EMOJIS = {
+            1: '😫',
+            2: '😕',
+            3: '😐',
+            4: '🙂',
+            5: '🌟'
+        };
+
+        const RATING_LABELS = {
+            1: 'Très mauvais',
+            2: 'Mauvais',
+            3: 'Bof',
+            4: 'Bien',
+            5: 'Très bien'
+        };
+
+        // State global de l'application
+        let sleepEntries = [];
+        let editingId = null;
+
+        // Éléments DOM
+        const form = document.getElementById('sleep-form');
+        const dateInput = document.getElementById('date-input');
+        const bedtimeInput = document.getElementById('bedtime-input');
+        const sleeptimeInput = document.getElementById('sleeptime-input');
+        const waketimeInput = document.getElementById('waketime-input');
+        const durationInput = document.getElementById('calculated-duration');
+        const notesInput = document.getElementById('notes-input');
+        const entryIdInput = document.getElementById('entry-id');
+        const btnResetForm = document.getElementById('btn-reset-form');
+        const formTitle = document.getElementById('form-title');
+        const timelineContainer = document.getElementById('timeline-container');
+        const tbody = document.getElementById('sleep-tbody');
+        const emptyState = document.getElementById('empty-state');
+
+        // Initialisation
+        window.onload = function() {
+            // Fixer la date par défaut à aujourd'hui
+            dateInput.valueAsDate = new Date();
+            
+            // Initialiser les boutons d'évaluations
+            setupRatingPickers();
+
+            // Initialiser la grille de timeline
+            initTimelineGrid();
+
+            // Charger les données stockées
+            loadEntriesFromStorage();
+
+            // Attacher les auditeurs de calcul de durée
+            sleeptimeInput.addEventListener('change', calculateDuration);
+            waketimeInput.addEventListener('change', calculateDuration);
+
+            // Modal d'aide
+            setupHelpModal();
+
+            // Import/Export
+            setupImportExport();
+        };
+
+        // Initialisation de la grille de timeline (23h à 15h)
+        function initTimelineGrid(initialStates = {}) {
+            timelineContainer.innerHTML = '';
+            currentTimelineState = {};
+
+            TIMELINE_HOURS.forEach(hour => {
+                const hourFormatted = hour.toString().padStart(2, '0') + 'h';
+                const state = initialStates[hour] !== undefined ? initialStates[hour] : 0;
+                currentTimelineState[hour] = state;
+
+                const box = document.createElement('div');
+                box.className = 'timeline-hour-box';
+                box.setAttribute('data-hour', hour);
+                box.setAttribute('data-state', state);
+
+                let statusText = 'Sommeil';
+                if(state === 1) statusText = '30 min';
+                if(state === 2) statusText = '1 heure';
+
+                box.innerHTML = `
+                    <span class="timeline-hour-label">${hourFormatted}</span>
+                    <div class="hour-visual"></div>
+                    <span class="status-text">${statusText}</span>
+                `;
+
+                box.addEventListener('click', () => {
+                    let currentState = parseInt(box.getAttribute('data-state'));
+                    let nextState = (currentState + 1) % 3; // Cycle: 0 -> 1 -> 2 -> 0
+                    
+                    box.setAttribute('data-state', nextState);
+                    currentTimelineState[hour] = nextState;
+
+                    const statusSpan = box.querySelector('.status-text');
+                    if(nextState === 0) statusSpan.textContent = 'Sommeil';
+                    if(nextState === 1) statusSpan.textContent = '30 min';
+                    if(nextState === 2) statusSpan.textContent = '1 heure';
+
+                    calculateDuration(); // Re-calculer si une interruption réduit la durée active
+                });
+
+                timelineContainer.appendChild(box);
+            });
+        }
+
+        // Configuration des Pickers de Rating (Style Nashallery)
+        function setupRatingPickers() {
+            document.querySelectorAll('.rating-picker').forEach(picker => {
+                const opts = picker.querySelectorAll('.rating-opt');
+                opts.forEach(opt => {
+                    opt.addEventListener('click', () => {
+                        opts.forEach(o => o.classList.remove('selected'));
+                        opt.classList.add('selected');
+                    });
+                });
+            });
+        }
+
+        function getRatingValue(pickerId) {
+            const selected = document.querySelector(`#${pickerId} .rating-opt.selected`);
+            return selected ? parseInt(selected.getAttribute('data-val')) : 3;
+        }
+
+        function setRatingValue(pickerId, value) {
+            const opts = document.querySelectorAll(`#${pickerId} .rating-opt`);
+            opts.forEach(opt => {
+                if(parseInt(opt.getAttribute('data-val')) === value) {
+                    opt.classList.add('selected');
+                } else {
+                    opt.classList.remove('selected');
+                }
+            });
+        }
+
+        // Calcul automatique de la durée de sommeil avec déduction des interruptions
+        function calculateDuration() {
+            const sleepVal = sleeptimeInput.value;
+            const wakeVal = waketimeInput.value;
+
+            if(!sleepVal || !wakeVal) {
+                durationInput.value = '';
+                return;
+            }
+
+            const [sHours, sMins] = sleepVal.split(':').map(Number);
+            const [wHours, wMins] = wakeVal.split(':').map(Number);
+
+            let sleepDate = new Date(2000, 0, 1, sHours, sMins);
+            let wakeDate = new Date(2000, 0, 1, wHours, wMins);
+
+            if (wakeDate <= sleepDate) {
+                wakeDate.setDate(wakeDate.getDate() + 1); // Passé minuit
+            }
+
+            let diffMs = wakeDate - sleepDate;
+            let totalMinutes = Math.floor(diffMs / (1000 * 60));
+
+            // Déduire les interruptions sélectionnées
+            let interruptionMinutes = 0;
+            Object.values(currentTimelineState).forEach(st => {
+                if(st === 1) interruptionMinutes += 30;
+                if(st === 2) interruptionMinutes += 60;
+            });
+
+            let netMinutes = totalMinutes - interruptionMinutes;
+            if (netMinutes < 0) netMinutes = 0;
+
+            const netHours = Math.floor(netMinutes / 60);
+            const remainingMins = netMinutes % 60;
+
+            let resultText = `${netHours}h ${remainingMins.toString().padStart(2, '0')}m`;
+            if(interruptionMinutes > 0) {
+                resultText += ` (-${interruptionMinutes}m d'éveil)`;
+            }
+
+            durationInput.value = resultText;
+        }
+
+        // Gestion du formulaire d'enregistrement
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const entryData = {
+                id: editingId ? editingId : Date.now().toString(),
+                date: dateInput.value,
+                bedtime: bedtimeInput.value,
+                sleeptime: sleeptimeInput.value,
+                waketime: waketimeInput.value,
+                duration: durationInput.value,
+                timeline: { ...currentTimelineState },
+                ratingSleep: getRatingValue('picker-sleep'),
+                ratingWake: getRatingValue('picker-wake'),
+                ratingDay: getRatingValue('picker-day'),
+                notes: notesInput.value.trim()
+            };
+
+            if(editingId) {
+                const index = sleepEntries.findIndex(item => item.id === editingId);
+                if(index !== -1) sleepEntries[index] = entryData;
+            } else {
+                sleepEntries.unshift(entryData); // Ajouter en premier
+            }
+
+            saveEntriesToStorage();
+            renderTable();
+            resetForm();
+        });
+
+        // Sauvegarde dans le LocalStorage
+        function saveEntriesToStorage() {
+            localStorage.setItem('nashallery_sleep_diary', JSON.stringify(sleepEntries));
+        }
+
+        function loadEntriesFromStorage() {
+            const data = localStorage.getItem('nashallery_sleep_diary');
+            if(data) {
+                try {
+                    sleepEntries = JSON.parse(data);
+                } catch(err) {
+                    sleepEntries = [];
+                }
+            }
+            renderTable();
+        }
+
+        // Affichage des données dans le tableau responsive
+        function renderTable() {
+            tbody.innerHTML = '';
+
+            if(sleepEntries.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            } else {
+                emptyState.style.display = 'none';
+            }
+
+            // Trier les entrées par date décroissante
+            sleepEntries.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            sleepEntries.forEach(entry => {
+                const tr = document.createElement('tr');
+
+                // Formater la date en français
+                const dateObj = new Date(entry.date + 'T00:00:00');
+                const formattedDate = dateObj.toLocaleDateString('fr-FR', {
+                    weekday: 'short',
+                    day: 'numeric',
+                    month: 'short'
+                });
+
+                // Génération de la mini timeline visuelle dans le tableau
+                let miniTimelineHtml = '<div class="table-timeline">';
+                TIMELINE_HOURS.forEach(hour => {
+                    const st = entry.timeline && entry.timeline[hour] !== undefined ? entry.timeline[hour] : 0;
+                    let stateClass = '';
+                    let titleText = `${hour}h: Sommeil`;
+
+                    if(st === 1) {
+                        stateClass = 'half';
+                        titleText = `${hour}h: 30m éveillé`;
+                    } else if(st === 2) {
+                        stateClass = 'full';
+                        titleText = `${hour}h: 1h éveillé`;
+                    }
+
+                    miniTimelineHtml += `<div class="mini-block ${stateClass}" title="${titleText}"></div>`;
+                });
+                miniTimelineHtml += '</div>';
+
+                tr.innerHTML = `
+                    <td style="font-weight: 700; color: #6b4c7d;">${formattedDate}</td>
+                    <td>${entry.bedtime || '-'}</td>
+                    <td>${entry.sleeptime || '-'}</td>
+                    <td>${entry.waketime || '-'}</td>
+                    <td>${miniTimelineHtml}</td>
+                    <td><span class="badge-duration">${entry.duration || '-'}</span></td>
+                    <td title="${RATING_LABELS[entry.ratingSleep]}">${RATING_EMOJIS[entry.ratingSleep] || '😐'}</td>
+                    <td title="${RATING_LABELS[entry.ratingWake]}">${RATING_EMOJIS[entry.ratingWake] || '😐'}</td>
+                    <td title="${RATING_LABELS[entry.ratingDay]}">${RATING_EMOJIS[entry.ratingDay] || '😐'}</td>
+                    <td style="text-align: center; white-space: nowrap;">
+                        <button class="btn btn-secondary btn-sm" onclick="editEntry('${entry.id}')" title="Modifier">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteEntry('${entry.id}')" title="Supprimer">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </td>
+                `;
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Édition d'une nuit
+        window.editEntry = function(id) {
+            const entry = sleepEntries.find(item => item.id === id);
+            if(!entry) return;
+
+            editingId = id;
+            entryIdInput.value = entry.id;
+            dateInput.value = entry.date;
+            bedtimeInput.value = entry.bedtime;
+            sleeptimeInput.value = entry.sleeptime;
+            waketimeInput.value = entry.waketime;
+            durationInput.value = entry.duration;
+            notesInput.value = entry.notes || '';
+
+            setRatingValue('picker-sleep', entry.ratingSleep || 3);
+            setRatingValue('picker-wake', entry.ratingWake || 3);
+            setRatingValue('picker-day', entry.ratingDay || 3);
+
+            initTimelineGrid(entry.timeline || {});
+
+            formTitle.textContent = "Modifier la nuit du " + entry.date;
+            btnResetForm.style.display = 'inline-flex';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // Supprimer une nuit
+        window.deleteEntry = function(id) {
+            if(confirm("Voulez-vous vraiment supprimer cette nuit du journal ? 🌸")) {
+                sleepEntries = sleepEntries.filter(item => item.id !== id);
+                saveEntriesToStorage();
+                renderTable();
+                if(editingId === id) resetForm();
+            }
+        };
+
+        // Reset du formulaire
+        function resetForm() {
+            editingId = null;
+            entryIdInput.value = '';
+            form.reset();
+            dateInput.valueAsDate = new Date();
+            setRatingValue('picker-sleep', 3);
+            setRatingValue('picker-wake', 3);
+            setRatingValue('picker-day', 3);
+            initTimelineGrid();
+            durationInput.value = '';
+            formTitle.textContent = "Ajouter une nuit de sommeil";
+            btnResetForm.style.display = 'none';
+        }
+
+        btnResetForm.addEventListener('click', resetForm);
+
+        // Modal d'aide
+        function setupHelpModal() {
+            const modal = document.getElementById('help-modal');
+            const btnHelp = document.getElementById('btn-help');
+            const btnClose = document.getElementById('modal-close');
+            const btnOk = document.getElementById('modal-ok-btn');
+
+            btnHelp.addEventListener('click', () => modal.classList.add('active'));
+            btnClose.addEventListener('click', () => modal.classList.remove('active'));
+            btnOk.addEventListener('click', () => modal.classList.remove('active'));
+
+            modal.addEventListener('click', (e) => {
+                if(e.target === modal) modal.classList.remove('active');
+            });
+        }
+
+        // Export / Import
+        function setupImportExport() {
+            const btnExport = document.getElementById('btn-export');
+            const btnImportTrigger = document.getElementById('btn-import-trigger');
+            const importFile = document.getElementById('import-file');
+
+            // Export JSON
+            btnExport.addEventListener('click', () => {
+                if(sleepEntries.length === 0) {
+                    alert("Votre journal est vide pour le moment !");
+                    return;
+                }
+                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(sleepEntries, null, 2));
+                const downloadAnchor = document.createElement('a');
+                downloadAnchor.setAttribute("href", dataStr);
+                downloadAnchor.setAttribute("download", `agenda_sommeil_backup_${new Date().toISOString().slice(0,10)}.json`);
+                document.body.appendChild(downloadAnchor);
+                downloadAnchor.click();
+                downloadAnchor.remove();
+            });
+
+            // Trigger File Dialog
+            btnImportTrigger.addEventListener('click', () => importFile.click());
+
+            // Read File
+            importFile.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    try {
+                        const importedData = JSON.parse(evt.target.result);
+                        if(Array.isArray(importedData)) {
+                            sleepEntries = importedData;
+                            saveEntriesToStorage();
+                            renderTable();
+                            alert("Vos données de sommeil ont été importées avec succès ! ✨");
+                        } else {
+                            alert("Le fichier JSON n'a pas le bon format.");
+                        }
+                    } catch(err) {
+                        alert("Erreur lors de la lecture du fichier JSON.");
+                    }
+                };
+                reader.readAsText(file);
+            });
+        }
+    </script>
+</body>
+</html>
