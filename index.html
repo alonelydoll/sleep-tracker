@@ -180,4 +180,979 @@
 
     .timeline-header {
       font-size: 0.9rem;
-      font
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .timeline-legend {
+      display: flex;
+      gap: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .legend-box {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      border: 1px solid #ddd;
+    }
+
+    .legend-box.sleep { background: var(--primary-light); border-color: var(--primary); }
+    .legend-box.half { background: #ffeaa7; border-color: #fdcb6e; }
+    .legend-box.full { background: #ff7675; border-color: #d63031; }
+
+    .hours-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+      gap: 6px;
+    }
+
+    .hour-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 4px;
+      background: var(--primary-light);
+      border: 2px solid var(--primary);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+      text-align: center;
+      min-height: 52px;
+    }
+
+    .hour-cell.half-awake {
+      background: #fff8e1;
+      border-color: #fbc02d;
+      color: #f57f17;
+    }
+
+    .hour-cell.full-awake {
+      background: #ffebee;
+      border-color: #e57373;
+      color: #c62828;
+    }
+
+    .hour-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .hour-state {
+      font-size: 0.7rem;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+
+    /* Ratings Grid */
+    .ratings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .rating-group {
+      background: white;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--card-border);
+    }
+
+    .rating-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .rating-options {
+      display: flex;
+      justify-content: space-between;
+      gap: 4px;
+    }
+
+    .rating-btn {
+      flex: 1;
+      background: #f8f9fa;
+      border: 2px solid #e9ecef;
+      padding: 8px 2px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      transition: all 0.2s;
+    }
+
+    .rating-btn span {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .rating-btn:hover {
+      transform: translateY(-2px);
+      background: var(--primary-light);
+    }
+
+    .rating-btn.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      box-shadow: 0 4px 10px rgba(155, 130, 227, 0.2);
+    }
+
+    .rating-btn.selected span {
+      color: var(--primary);
+    }
+
+    /* Submit Button */
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--pink) 100%);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(155, 130, 227, 0.3);
+      transition: all 0.2s;
+      margin-top: 20px;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(155, 130, 227, 0.4);
+    }
+
+    /* Table Styles */
+    .table-container {
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--card-border);
+      background: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.85rem;
+      min-width: 800px;
+    }
+
+    th {
+      background: var(--primary-light);
+      color: var(--primary);
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      padding: 12px 10px;
+      border-bottom: 2px solid var(--card-border);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #f0f0f0;
+      vertical-align: middle;
+    }
+
+    tr:hover td {
+      background: #faf8ff;
+    }
+
+    .badge-time {
+      background: #f0f0f0;
+      padding: 3px 6px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .badge-duration {
+      background: var(--mint-light);
+      color: #2e7d32;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-weight: 800;
+    }
+
+    .interruption-dots {
+      display: flex;
+      gap: 2px;
+      flex-wrap: wrap;
+      max-width: 180px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .dot.half { background: #fbc02d; }
+    .dot.full { background: #e57373; }
+
+    .action-btn-del {
+      background: #ffebee;
+      color: #e57373;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+
+    .action-btn-del:hover {
+      background: #ffcdd2;
+    }
+
+    /* LOCK SCREEN MODAL */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(240, 235, 250, 0.95);
+      backdrop-filter: blur(15px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .pin-card {
+      background: white;
+      border: 3px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .pin-title {
+      font-family: 'Fredoka', sans-serif;
+      color: var(--primary);
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    .pin-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .pin-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .pin-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid var(--primary);
+      background: white;
+      transition: all 0.2s;
+    }
+
+    .pin-dot.filled {
+      background: var(--primary);
+      transform: scale(1.1);
+    }
+
+    .pin-keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .pin-btn {
+      aspect-ratio: 1;
+      background: var(--primary-light);
+      border: none;
+      border-radius: 50%;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      margin: 0 auto;
+      width: 60px;
+      height: 60px;
+    }
+
+    .pin-btn:active {
+      transform: scale(0.9);
+      background: var(--primary);
+      color: white;
+    }
+
+    .pin-btn.action {
+      background: transparent;
+      font-size: 1rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .modal-box {
+      background: white;
+      padding: 24px;
+      border-radius: var(--radius-lg);
+      max-width: 450px;
+      width: 100%;
+      border: 2px solid var(--card-border);
+    }
+
+    .night-label-preview {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOCK SCREEN -->
+  <div id="lockScreen" class="modal-overlay hidden">
+    <div class="pin-card">
+      <div style="font-size: 2.5rem; margin-bottom: 5px;">🌙</div>
+      <div class="pin-title" id="pinTitle">Bienvenue ! ✨</div>
+      <div class="pin-subtitle" id="pinSubtitle">Créez votre code PIN à 6 chiffres</div>
+      
+      <div class="pin-dots">
+        <div class="pin-dot" id="dot0"></div>
+        <div class="pin-dot" id="dot1"></div>
+        <div class="pin-dot" id="dot2"></div>
+        <div class="pin-dot" id="dot3"></div>
+        <div class="pin-dot" id="dot4"></div>
+        <div class="pin-dot" id="dot5"></div>
+      </div>
+
+      <div class="pin-keypad">
+        <button class="pin-btn" onclick="pressPin('1')">1</button>
+        <button class="pin-btn" onclick="pressPin('2')">2</button>
+        <button class="pin-btn" onclick="pressPin('3')">3</button>
+        <button class="pin-btn" onclick="pressPin('4')">4</button>
+        <button class="pin-btn" onclick="pressPin('5')">5</button>
+        <button class="pin-btn" onclick="pressPin('6')">6</button>
+        <button class="pin-btn" onclick="pressPin('7')">7</button>
+        <button class="pin-btn" onclick="pressPin('8')">8</button>
+        <button class="pin-btn" onclick="pressPin('9')">9</button>
+        <button class="pin-btn action" onclick="clearPin()">C</button>
+        <button class="pin-btn" onclick="pressPin('0')">0</button>
+        <button class="pin-btn action" onclick="deletePinLast()">⌫</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETTINGS MODAL -->
+  <div id="settingsModal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <h3 style="font-family: 'Fredoka'; color: var(--primary); margin-bottom: 12px;">⚙️ Paramètres & Sécurité</h3>
+      
+      <div style="margin-bottom: 20px;">
+        <h4 style="font-size: 0.95rem; margin-bottom: 8px;">Sécurité du site :</h4>
+        <button class="btn-icon-text" style="width: 100%; justify-content: center; padding: 10px; margin-bottom: 8px;" onclick="changePin()">
+          🔒 Modifier mon code PIN (6 chiffres)
+        </button>
+        <button class="btn-icon-text" style="width: 100%; justify-content: center; padding: 10px; color: #e57373;" onclick="removePin()">
+          🔓 Supprimer la protection PIN
+        </button>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <h4 style="font-size: 0.95rem; margin-bottom: 8px;">Sauvegarde de vos données :</h4>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-icon-text" style="flex:1; justify-content: center;" onclick="exportData()">📥 Exporter (JSON)</button>
+          <button class="btn-icon-text" style="flex:1; justify-content: center;" onclick="document.getElementById('importFile').click()">📤 Importer</button>
+          <input type="file" id="importFile" class="hidden" accept=".json" onchange="importData(event)">
+        </div>
+      </div>
+
+      <button class="btn-submit" style="margin-top: 0;" onclick="closeSettings()">Fermer</button>
+    </div>
+  </div>
+
+  <!-- MAIN APP CONTAINER -->
+  <div class="container">
+    
+    <header>
+      <div class="logo-title">
+        <span>✨</span> Mon Agenda du Sommeil
+      </div>
+      <div class="top-actions">
+        <button class="btn-icon-text" onclick="lockApp()">🔒 Verrouiller</button>
+        <button class="btn-icon-text" onclick="openSettings()">⚙️ Options</button>
+      </div>
+    </header>
+
+    <div class="card">
+      <div class="card-title">
+        <span>🌙</span> Enregistrer une nuit
+      </div>
+
+      <form id="sleepForm">
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label>📅 Date du coucher</label>
+            <input type="date" id="sleepDate" required onchange="updateNightPreview()">
+            <div class="night-label-preview" id="nightPreview">Nuit du ... au ...</div>
+          </div>
+          
+          <div class="form-group">
+            <label>🛌 Heure au lit (Bedtime)</label>
+            <input type="time" id="bedTime" required>
+          </div>
+
+          <div class="form-group">
+            <label>😴 Heure d'endormissement</label>
+            <input type="time" id="sleepTime" required>
+          </div>
+
+          <div class="form-group">
+            <label>⏰ Heure de réveil</label>
+            <input type="time" id="wakeTime" required>
+          </div>
+        </div>
+
+        <div class="timeline-container">
+          <div class="timeline-header">
+            <span>⏱️ Suivi des interruptions & éveil (23h ➔ 15h)</span>
+            <div class="timeline-legend">
+              <div class="legend-item"><div class="legend-box sleep"></div> Sommeil</div>
+              <div class="legend-item"><div class="legend-box half"></div> 30 min éveil</div>
+              <div class="legend-item"><div class="legend-box full"></div> 1h éveil</div>
+            </div>
+          </div>
+          <div class="hours-grid" id="hoursGrid"></div>
+        </div>
+
+        <div class="ratings-grid">
+          
+          <div class="rating-group">
+            <label>😴 Qualité du sommeil</label>
+            <div class="rating-options" id="ratingSleep">
+              <button type="button" class="rating-btn" data-val="1">🌧️<span>Très mauvais</span></button>
+              <button type="button" class="rating-btn" data-val="2">☁️<span>Mauvais</span></button>
+              <button type="button" class="rating-btn selected" data-val="3">🌿<span>Bof</span></button>
+              <button type="button" class="rating-btn" data-val="4">🌸<span>Bien</span></button>
+              <button type="button" class="rating-btn" data-val="5">🌟<span>Très bien</span></button>
+            </div>
+          </div>
+
+          <div class="rating-group">
+            <label>☀️ Qualité du réveil</label>
+            <div class="rating-options" id="ratingWake">
+              <button type="button" class="rating-btn" data-val="1">🌧️<span>Très mauvais</span></button>
+              <button type="button" class="rating-btn" data-val="2">☁️<span>Mauvais</span></button>
+              <button type="button" class="rating-btn selected" data-val="3">🌿<span>Bof</span></button>
+              <button type="button" class="rating-btn" data-val="4">🌸<span>Bien</span></button>
+              <button type="button" class="rating-btn" data-val="5">🌟<span>Très bien</span></button>
+            </div>
+          </div>
+
+          <div class="rating-group">
+            <label>🌈 Qualité de la journée</label>
+            <div class="rating-options" id="ratingDay">
+              <button type="button" class="rating-btn" data-val="1">🌧️<span>Très mauvais</span></button>
+              <button type="button" class="rating-btn" data-val="2">☁️<span>Mauvais</span></button>
+              <button type="button" class="rating-btn selected" data-val="3">🌿<span>Bof</span></button>
+              <button type="button" class="rating-btn" data-val="4">🌸<span>Bien</span></button>
+              <button type="button" class="rating-btn" data-val="5">🌟<span>Très bien</span></button>
+            </div>
+          </div>
+
+        </div>
+
+        <button type="submit" class="btn-submit">✨ Ajouter cette nuit à mon agenda</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>📖</span> Mon Journal du Sommeil
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Nuit</th>
+              <th>Coucher</th>
+              <th>Endormissement</th>
+              <th>Réveil</th>
+              <th>Interruptions</th>
+              <th>Durée Sommeil</th>
+              <th>Sommeil</th>
+              <th>Réveil</th>
+              <th>Journée</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="logsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const HOURS = [23, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+    let hourStates = {}; 
+
+    const QUALITY_EMOJIS = {
+      1: '🌧️',
+      2: '☁️',
+      3: '🌿',
+      4: '🌸',
+      5: '🌟'
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('sleepDate').value = today;
+      updateNightPreview();
+
+      initTimeline();
+
+      setupRatingGroup('ratingSleep');
+      setupRatingGroup('ratingWake');
+      setupRatingGroup('ratingDay');
+
+      checkPinOnStartup();
+      renderLogs();
+    });
+
+    function updateNightPreview() {
+      const dateVal = document.getElementById('sleepDate').value;
+      const previewEl = document.getElementById('nightPreview');
+      if (!dateVal) {
+        previewEl.innerText = "Nuit du ... au ...";
+        return;
+      }
+      
+      const d1 = new Date(dateVal);
+      const d2 = new Date(d1);
+      d2.setDate(d2.getDate() + 1);
+
+      const format = (d) => d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+      previewEl.innerText = `Nuit du ${format(d1)} au ${format(d2)}`;
+    }
+
+    function initTimeline() {
+      const grid = document.getElementById('hoursGrid');
+      grid.innerHTML = '';
+      HOURS.forEach(h => {
+        hourStates[h] = 0; 
+        
+        const cell = document.createElement('div');
+        cell.className = 'hour-cell';
+        cell.id = `hour-cell-${h}`;
+        cell.onclick = () => toggleHourState(h);
+
+        const label = document.createElement('div');
+        label.className = 'hour-label';
+        label.innerText = `${h}h`;
+
+        const stateLabel = document.createElement('div');
+        stateLabel.className = 'hour-state';
+        stateLabel.id = `hour-state-${h}`;
+        stateLabel.innerText = '';
+
+        cell.appendChild(label);
+        cell.appendChild(stateLabel);
+        grid.appendChild(cell);
+      });
+    }
+
+    function toggleHourState(h) {
+      hourStates[h] = (hourStates[h] + 1) % 3;
+      const cell = document.getElementById(`hour-cell-${h}`);
+      const stateLabel = document.getElementById(`hour-state-${h}`);
+
+      cell.classList.remove('half-awake', 'full-awake');
+
+      if (hourStates[h] === 0) {
+        stateLabel.innerText = '';
+      } else if (hourStates[h] === 1) {
+        cell.classList.add('half-awake');
+        stateLabel.innerText = '30m';
+      } else if (hourStates[h] === 2) {
+        cell.classList.add('full-awake');
+        stateLabel.innerText = '1h';
+      }
+    }
+
+    function setupRatingGroup(groupId) {
+      const container = document.getElementById(groupId);
+      const btns = container.querySelectorAll('.rating-btn');
+      btns.forEach(btn => {
+        btn.onclick = () => {
+          btns.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+        };
+      });
+    }
+
+    function getSelectedRating(groupId) {
+      const container = document.getElementById(groupId);
+      const selected = container.querySelector('.rating-btn.selected');
+      return selected ? parseInt(selected.getAttribute('data-val')) : 3;
+    }
+
+    function setSelectedRating(groupId, val) {
+      const container = document.getElementById(groupId);
+      const btns = container.querySelectorAll('.rating-btn');
+      btns.forEach(b => {
+        if (parseInt(b.getAttribute('data-val')) === val) {
+          b.classList.add('selected');
+        } else {
+          b.classList.remove('selected');
+        }
+      });
+    }
+
+    function calculateSleepDuration(sleepTime, wakeTime, interruptions) {
+      if (!sleepTime || !wakeTime) return "0h00";
+
+      const [sH, sM] = sleepTime.split(':').map(Number);
+      const [wH, wM] = wakeTime.split(':').map(Number);
+
+      let start = sH * 60 + sM;
+      let end = wH * 60 + wM;
+
+      if (end <= start) {
+        end += 24 * 60;
+      }
+
+      let totalMinutes = end - start;
+
+      let awakeMinutes = 0;
+      Object.keys(interruptions).forEach(h => {
+        if (interruptions[h] === 1) awakeMinutes += 30;
+        if (interruptions[h] === 2) awakeMinutes += 60;
+      });
+
+      totalMinutes = Math.max(0, totalMinutes - awakeMinutes);
+
+      const hrs = Math.floor(totalMinutes / 60);
+      const mins = totalMinutes % 60;
+
+      return `${hrs}h${mins < 10 ? '0' : ''}${mins}`;
+    }
+
+    document.getElementById('sleepForm').onsubmit = (e) => {
+      e.preventDefault();
+
+      const sleepDate = document.getElementById('sleepDate').value;
+      const bedTime = document.getElementById('bedTime').value;
+      const sleepTime = document.getElementById('sleepTime').value;
+      const wakeTime = document.getElementById('wakeTime').value;
+
+      const qSleep = getSelectedRating('ratingSleep');
+      const qWake = getSelectedRating('ratingWake');
+      const qDay = getSelectedRating('ratingDay');
+
+      const duration = calculateSleepDuration(sleepTime, wakeTime, hourStates);
+
+      const entry = {
+        id: Date.now(),
+        date: sleepDate,
+        bedTime,
+        sleepTime,
+        wakeTime,
+        interruptions: { ...hourStates },
+        duration,
+        qSleep,
+        qWake,
+        qDay
+      };
+
+      const logs = getLogs();
+      logs.unshift(entry);
+      saveLogs(logs);
+
+      renderLogs();
+      resetForm();
+    };
+
+    function getLogs() {
+      const data = localStorage.getItem('sleep_logs');
+      return data ? JSON.parse(data) : [];
+    }
+
+    function saveLogs(logs) {
+      localStorage.setItem('sleep_logs', JSON.stringify(logs));
+    }
+
+    function deleteLog(id) {
+      if (confirm("Voulez-vous supprimer cette nuit ?")) {
+        let logs = getLogs();
+        logs = logs.filter(l => l.id !== id);
+        saveLogs(logs);
+        renderLogs();
+      }
+    }
+
+    function resetForm() {
+      HOURS.forEach(h => {
+        hourStates[h] = 0;
+        const cell = document.getElementById(`hour-cell-${h}`);
+        const stateLabel = document.getElementById(`hour-state-${h}`);
+        cell.classList.remove('half-awake', 'full-awake');
+        stateLabel.innerText = '';
+      });
+
+      setSelectedRating('ratingSleep', 3);
+      setSelectedRating('ratingWake', 3);
+      setSelectedRating('ratingDay', 3);
+    }
+
+    function renderLogs() {
+      const tbody = document.getElementById('logsTableBody');
+      const logs = getLogs();
+      tbody.innerHTML = '';
+
+      if (logs.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="11" style="text-align:center; color: var(--text-muted); padding: 20px;">Aucune nuit enregistrée pour l'instant ✨</td></tr>`;
+        return;
+      }
+
+      logs.forEach(l => {
+        const tr = document.createElement('tr');
+
+        const d1 = new Date(l.date);
+        const d2 = new Date(d1);
+        d2.setDate(d2.getDate() + 1);
+        const formatShort = (d) => d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'numeric' });
+        const nightStr = `${formatShort(d1)} ➔ ${formatShort(d2)}`;
+
+        let interHtml = '';
+        let interCount = 0;
+        if (l.interruptions) {
+          Object.keys(l.interruptions).forEach(h => {
+            const st = l.interruptions[h];
+            if (st === 1) {
+              interHtml += `<span class="dot half" title="${h}h: 30m éveil"></span>`;
+              interCount += 0.5;
+            } else if (st === 2) {
+              interHtml += `<span class="dot full" title="${h}h: 1h éveil"></span>`;
+              interCount += 1;
+            }
+          });
+        }
+
+        const interSummary = interCount > 0 ? `<div style="display:flex; align-items:center; gap:4px;"><div class="interruption-dots">${interHtml}</div><span style="font-size:0.7rem;">(${interCount}h)</span></div>` : '<span style="color:#a0a0a0;">Aucune</span>';
+
+        tr.innerHTML = `
+          <td><b>${l.date}</b></td>
+          <td><span style="font-size:0.75rem; font-weight:700; color:var(--primary);">${nightStr}</span></td>
+          <td><span class="badge-time">${l.bedTime}</span></td>
+          <td><span class="badge-time">${l.sleepTime}</span></td>
+          <td><span class="badge-time">${l.wakeTime}</span></td>
+          <td>${interSummary}</td>
+          <td><span class="badge-duration">${l.duration}</span></td>
+          <td style="font-size:1.1rem; text-align:center;">${QUALITY_EMOJIS[l.qSleep] || '🌿'}</td>
+          <td style="font-size:1.1rem; text-align:center;">${QUALITY_EMOJIS[l.qWake] || '🌿'}</td>
+          <td style="font-size:1.1rem; text-align:center;">${QUALITY_EMOJIS[l.qDay] || '🌿'}</td>
+          <td>
+            <button class="action-btn-del" onclick="deleteLog(${l.id})">🗑️</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // --- LOGIQUE PIN SECURITY ---
+    let currentPinInput = "";
+    let setupPinMode = false;
+    let tempPin = "";
+
+    function checkPinOnStartup() {
+      const savedPin = localStorage.getItem('sleep_app_pin');
+      if (!savedPin) {
+        startPinSetup();
+      } else {
+        showLockScreen("Code PIN requis 🔒", "Entrez votre code à 6 chiffres");
+      }
+    }
+
+    function showLockScreen(title, subtitle) {
+      document.getElementById('pinTitle').innerText = title;
+      document.getElementById('pinSubtitle').innerText = subtitle;
+      document.getElementById('lockScreen').classList.remove('hidden');
+      clearPin();
+    }
+
+    function lockApp() {
+      const savedPin = localStorage.getItem('sleep_app_pin');
+      if (!savedPin) {
+        startPinSetup();
+      } else {
+        showLockScreen("Application verrouillée 🔒", "Entrez votre PIN à 6 chiffres");
+      }
+    }
+
+    function pressPin(num) {
+      if (currentPinInput.length < 6) {
+        currentPinInput += num;
+        updatePinDots();
+      }
+
+      if (currentPinInput.length === 6) {
+        setTimeout(handlePinComplete, 150);
+      }
+    }
+
+    function clearPin() {
+      currentPinInput = "";
+      updatePinDots();
+    }
+
+    function deletePinLast() {
+      currentPinInput = currentPinInput.slice(0, -1);
+      updatePinDots();
+    }
+
+    function updatePinDots() {
+      for (let i = 0; i < 6; i++) {
+        const dot = document.getElementById(`dot${i}`);
+        if (i < currentPinInput.length) {
+          dot.classList.add('filled');
+        } else {
+          dot.classList.remove('filled');
+        }
+      }
+    }
+
+    function handlePinComplete() {
+      const savedPin = localStorage.getItem('sleep_app_pin');
+
+      if (setupPinMode) {
+        if (!tempPin) {
+          tempPin = currentPinInput;
+          showLockScreen("Confirmation ✨", "Répétez votre code PIN à 6 chiffres");
+        } else {
+          if (currentPinInput === tempPin) {
+            localStorage.setItem('sleep_app_pin', tempPin);
+            alert("✨ Code PIN à 6 chiffres enregistré avec succès !");
+            document.getElementById('lockScreen').classList.add('hidden');
+            setupPinMode = false;
+            tempPin = "";
+          } else {
+            alert("❌ Les codes ne correspondent pas. Recommencez.");
+            startPinSetup();
+          }
+        }
+      } else {
+        if (currentPinInput === savedPin) {
+          document.getElementById('lockScreen').classList.add('hidden');
+          clearPin();
+        } else {
+          alert("❌ Code PIN incorrect");
+          clearPin();
+        }
+      }
+    }
+
+    function startPinSetup() {
+      setupPinMode = true;
+      tempPin = "";
+      showLockScreen("Bienvenue ! ✨", "Créez votre code PIN à 6 chiffres");
+    }
+
+    function changePin() {
+      closeSettings();
+      startPinSetup();
+    }
+
+    function removePin() {
+      if (confirm("Voulez-vous vraiment désactiver la protection par code PIN ?")) {
+        localStorage.removeItem('sleep_app_pin');
+        alert("Protection par PIN désactivée.");
+        closeSettings();
+      }
+    }
+
+    function openSettings() {
+      document.getElementById('settingsModal').classList.remove('hidden');
+    }
+
+    function closeSettings() {
+      document.getElementById('settingsModal').classList.add('hidden');
+    }
+
+    function exportData() {
+      const logs = getLogs();
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(logs, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `mon_agenda_sommeil_${new Date().toISOString().split('T')[0]}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function importData(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const logs = JSON.parse(e.target.result);
+          if (Array.isArray(logs)) {
+            saveLogs(logs);
+            renderLogs();
+            alert("✨ Données importées avec succès !");
+            closeSettings();
+          } else {
+            alert("Fichier non valide.");
+          }
+        } catch (err) {
+          alert("Erreur lors de la lecture du fichier JSON.");
+        }
+      };
+      reader.readAsText(file);
+    }
+  </script>
+</body>
+</html>
